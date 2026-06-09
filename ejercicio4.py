@@ -15,7 +15,7 @@ def agregar_usuario(usuario):
         print ("[ERROR]Ingrese un valor correcto")
         return
     while True:
-        sexo = input("Ingrese sexo del usuario: ").strip().upper()
+        sexo = input("Ingrese sexo del usuario (F/M): ").strip().upper()
         if sexo != "F" and sexo != "M":
             print ("[Error] Ingrese un valor correcto ")
             continue
@@ -26,8 +26,8 @@ def agregar_usuario(usuario):
         if len(contraseña) < 8:
             print("[ERROR] ingrese un valor correcto.")
             continue
-        if "" in contraseña:
-            rint("[ERROR] ingrese un valor correcto.")
+        if " " in contraseña:
+            print("[ERROR] ingrese un valor correcto.")
             continue
         tiene_numero = False
         tiene_letra = False
@@ -39,62 +39,39 @@ def agregar_usuario(usuario):
                 tiene_letra = True
 
         if tiene_numero and tiene_letra:
-            print("Contraseña aceptada")
-            usuario[nombre] = [sexo],[contraseña]
+            print("\nContraseña aceptada")
+            usuario[nombre] = {"sexo": sexo, "contraseña": contraseña}
             break
 
         else:
             print("[ERROR] Ingrese valor correcto")
             
-
-    nuevo_usuario = {"nombre": nombre, "sexo": sexo, "contraseña": contraseña}
-    print (f"\n Usuario {nombre} creado correctamente")
-    return nuevo_usuario
+    print (f"\nUsuario {nombre} ha sido creado correctamente!")
+    
 def buscar_usuario(usuario):
-    buscar = input("Ingrese el nombre del Usuario ")
+    buscar = input("Ingrese el nombre del Usuario: ")
     if buscar in usuario:
-        print(f"el sexo del usuario {usuario[buscar[0]]} y la contraseña del ususario {ususario[buscar[1]]}")
+        datos = usuario[buscar]
+        print(f"el sexo del usuario {datos["sexo"]} y la contraseña del ususario es {datos["contraseña"]}")
     else: 
-        print("usuario no encontrado.")
+        print("\nusuario no encontrado.")
 
 def eliminar_usuario(usuario):
-    eliminar = input("ingrese nombre del usuario a eliminar.")
+    eliminar = input("ingrese nombre del usuario a eliminar:")
     if eliminar in usuario:
-        del usuario{eliminar}
+        del usuario [eliminar]
         print ("usuario eliminado")
     else:
         print("no se pudo eliminar al usuario")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 usuario = {}    
 while True:
     mostrar_menu()
     try:
         menu = int(input("Ingrese una opcion: "))
-        break
     except ValueError:
             print("Ingreese una opcion correcta")
+            continue
     if menu == 1:
         agregar_usuario(usuario)
     elif menu == 2:
@@ -104,3 +81,5 @@ while True:
     elif menu == 4:
         print("Programa terminado.")
         break
+    else:
+        print("Opcion no valida, intente de nuevo.")
